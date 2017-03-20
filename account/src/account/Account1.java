@@ -1,7 +1,7 @@
 package account;
 
 public class Account1 {
-	private double money;
+	protected double money;
 	public double balance(){
 		return money;
 	}
@@ -16,7 +16,10 @@ public class Account1 {
 	public void credit(double s){
 		money+=s;
 	}
-	public void Account(double s){
+	void setBalance(double s){
 		money=s;
+	}//ÀÜ¾×¼öÁ¤
+	public double getBalance(){
+		return money;
 	}
 }
