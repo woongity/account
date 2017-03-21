@@ -5,13 +5,14 @@ public class Account1 {
 	public double balance(){
 		return money;
 	}
-	public String debit(double s){
+	public Account1(double money){
+		this.money=money;
+	}
+	public void debit(double s){
 		money-=s;
 		if(money<0){
 			money+=s;
-			return "Debit amount exceed Account balance"; 
 		}
-		return null;
 	}
 	public void credit(double s){
 		money+=s;

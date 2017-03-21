@@ -6,7 +6,9 @@ public class CheckingAccount extends Account1 {
 	private double interest;
 	private double loan_interest;
 	
-	void CheckingAccount(double credit_interest,double interest,double loan_interest){
+
+	public CheckingAccount(double money,double credit_limit,double interest,double loan_interest){
+		super(money);
 		this.credit_limit=credit_limit;
 		this.interest=interest;
 		this.loan_interest=loan_interest;
@@ -21,20 +23,19 @@ public class CheckingAccount extends Account1 {
 		return loan_interest;
 	}
 	@Override
-	public String debit(double s){
+	public void debit(double s){
 		money-=s;
 		if(money<credit_limit){
 			money+=s;
-			return "debit acceed limit";
-		}
-		return null; 
+			System.out.println("error occur!");
+		} 
 	}
-	public double nextmonth(){
+	public void nextmonth(){
 		if(money<0){
-			return money*(1+loan_interest);
+			money= money*(1+loan_interest);
 		}
 		else{
-			return money*(1+interest);
+			money=money*(1+interest);
 		}
 	}
 }
