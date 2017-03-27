@@ -1,10 +1,9 @@
 package account;
 
-public class Account1 {
+public abstract class Account1 {
 	protected double money;
-	public double balance(){
-		return money;
-	}
+	protected int month;
+	protected double benefit;
 	public Account1(double money){
 		this.money=money;
 	}
@@ -23,4 +22,6 @@ public class Account1 {
 	public double getBalance(){
 		return money;
 	}
+	public abstract double getWithdrawableAccount();
+	public abstract double passTime(int month);
 }
