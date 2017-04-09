@@ -1,54 +1,57 @@
 package account;
 
 public class CheckingAccount extends Account1{
-	private double credit_limit;
+	private double creditLimit;
 	private double interest;
-	private double loan_interest;
-	private int month;
+	private double loanInterest;
 
-	public CheckingAccount(double money,double credit_limit,double interest,double loan_interest){
+	public CheckingAccount(double money,double creditLimit,double interest,double loanInterest){
 		super(money);
-		this.credit_limit=credit_limit;
+		this.creditLimit=creditLimit;
 		this.interest=interest;
-		this.loan_interest=loan_interest;
+		this.loanInterest=loanInterest;
 	}
 	@Override
 	public void debit(double s){
-		money-=s;
-		if(money<credit_limit){
-			System.out.println("account1 went Bankrupt!");
-		} 
+		if(balance - s >= - creditLimit) {
+			super.debit(s);
+		}
 	}
-	public void nextMonth(){
+	/*public void nextMonth(){
 		if(money<0){
 			money= money*(1+loan_interest);
 		}
 		else{
 			money=money*(1+interest);
 		}
-	}
+	}*/
 	public double passTime(int month){
-		 if(money<0){
-			 money= money*Math.pow((1+loan_interest),month);
-			 return money;
+		 if(balance<0){
+			 balance= balance*Math.pow((1+loanInterest),month);
+			 return balance;
 		 }
 		 else{
-			 money= money*Math.pow((1+interest),month);
-			 return money;
+			 balance= balance*Math.pow((1+interest),month);
+			 return balance;
 		 }
 	}
-	public double getWithdrawableAccount(){
-		if(money+credit_limit<0){
+	public double getWithdrawableAmount(){
+		if(isBankrupted()){
 			return 0;
 		}else{
-			return money+credit_limit;
+			return balance+creditLimit;
 		}
 	}
 	public boolean isBankrupted(){
-		if(money<credit_limit)
-			return true;
-		else
-			return false;
+		return balance < -creditLimit;
+	}
+	@Override
+	public double EstimateValue(int month) {
+		return passTime(month);
+	}
+	public String toString(){
+		String str=String.format("CheckingAccount_Balance : %f",balance);
+		return str;
 	}
 }
 

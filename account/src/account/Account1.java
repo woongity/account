@@ -1,27 +1,23 @@
 package account;
 
-public abstract class Account1 {
-	protected double money;
-	protected int month;
-	protected double benefit;
+public abstract class Account1 implements Valuable {
+	protected double balance;
 	public Account1(double money){
-		this.money=money;
+		this.balance=money;
 	}
 	public void debit(double s){
-		money-=s;
-		if(money<0){
-			money+=s;
-		}
+		balance-=s;
+		System.out.printf("Withdraw: %f ; Balance: %f\n", s, balance);
 	}
 	public void credit(double s){
-		money+=s;
+		balance+=s;
 	}
 	void setBalance(double s){
-		money=s;
+		balance=s;
 	}//ÀÜ¾×¼öÁ¤
 	public double getBalance(){
-		return money;
+		return balance;
 	}
-	public abstract double getWithdrawableAccount();
+	public abstract double getWithdrawableAmount();
 	public abstract double passTime(int month);
 }

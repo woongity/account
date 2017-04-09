@@ -1,52 +1,45 @@
 package account;
 
 public class SavingAccount extends Account1 {
-	
-	private int check1=0;
-	private int check2=0;
-	private double benefit;
+	protected int month;
+	private double interest;
 	public SavingAccount(double money,double benefit) {
 		super(money);
-		this.benefit=benefit;
+		this.interest=benefit;
 	}
 	@Override
 	public void debit(double money){
 		if(month<=12){
 			System.out.println("아직 출금할수 없습니다");
-		}
-		else{
-			this.money-=money;
+		} else if(money <= balance){
+			debit(money);
 		}
 	}
+	
+	@Override public void credit(double money) {
+		
+	}
+	
 	@Override
 	public double passTime(int month){
+		if(month <= 0) return balance;
+
+		if(this.month < 12 || this.month + month >= 12) {
+			balance=balance*Math.pow((1+interest),12);
+		}
 		this.month+=month;
-		if(month>=12){
-			if(check1==0){
-				check1=1;
-				money=money*Math.pow((1+benefit),12);
-				return money;
-			}
-			else
-				return money;
-		}else{
-			//money=money*Math.pow((1+benefit),12);
-			return money;
-		}
+		return balance;
 	}
-	public double getWithdrawableAccount(){
-		if(month>=12){
-			if(check2==0){
-				check2=1;
-				money=money*Math.pow((1+benefit),12);
-				return money;
-			}
-			else{
-				return money;
-			}
-		}
-		else{
-			return money;
-		}
+	
+	public double getWithdrawableAmount(){
+		return (month < 12) ? 0 : balance;
+	}
+	@Override
+	public double EstimateValue(int month) {
+		return passTime(month);
+	}
+	public String toString(){
+		String str=String.format("SavingAccount_Balance : %f",balance);
+		return str;
 	}
 }
