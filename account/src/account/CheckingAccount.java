@@ -12,19 +12,28 @@ public class CheckingAccount extends Account1{
 		this.loanInterest=loanInterest;
 	}
 	@Override
-	public void debit(double s){
-		if(balance - s >= - creditLimit) {
+	public void debit(double s) throws Exception{
+		 if(s<0){
+			throw new Exception("음수입력!");
+		}
+		 else if(balance - s >= - creditLimit) {
 			super.debit(s);
 		}
-	}
-	/*public void nextMonth(){
-		if(money<0){
-			money= money*(1+loan_interest);
+		else if(balance - s < - creditLimit){
+			throw new Exception("한도초과");
 		}
 		else{
-			money=money*(1+interest);
+			throw new InputMismatchException();
 		}
-	}*/
+	}
+	public void nextMonth(){
+		if(balance<0){
+			balance= balance*(1+loanInterest);
+		}
+		else{
+			balance=balance*(1+interest);
+		}
+	}
 	public double passTime(int month){
 		 if(balance<0){
 			 balance= balance*Math.pow((1+loanInterest),month);
@@ -44,10 +53,6 @@ public class CheckingAccount extends Account1{
 	}
 	public boolean isBankrupted(){
 		return balance < -creditLimit;
-	}
-	@Override
-	public double EstimateValue(int month) {
-		return passTime(month);
 	}
 	public String toString(){
 		String str=String.format("CheckingAccount_Balance : %f",balance);

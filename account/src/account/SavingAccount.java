@@ -8,11 +8,16 @@ public class SavingAccount extends Account1 {
 		this.interest=benefit;
 	}
 	@Override
-	public void debit(double money){
+	public void debit(double money) throws Exception{
 		if(month<=12){
-			System.out.println("아직 출금할수 없습니다");
+			throw new Exception("아직 출금할수 없습니다");
 		} else if(money <= balance){
 			debit(money);
+		}else if(money<0){
+			throw new Exception("음수입력!");
+		}
+		else{
+			throw new InputMismatchException();
 		}
 	}
 	
@@ -35,9 +40,6 @@ public class SavingAccount extends Account1 {
 		return (month < 12) ? 0 : balance;
 	}
 	@Override
-	public double EstimateValue(int month) {
-		return passTime(month);
-	}
 	public String toString(){
 		String str=String.format("SavingAccount_Balance : %f",balance);
 		return str;

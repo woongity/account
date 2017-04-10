@@ -1,13 +1,12 @@
 package account;
 
-public abstract class Account1 implements Valuable {
+public abstract class Account1  {
 	protected double balance;
 	public Account1(double money){
 		this.balance=money;
 	}
-	public void debit(double s){
+	public void debit(double s) throws Exception{
 		balance-=s;
-		System.out.printf("Withdraw: %f ; Balance: %f\n", s, balance);
 	}
 	public void credit(double s){
 		balance+=s;
