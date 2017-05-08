@@ -12,7 +12,10 @@ public class Human implements Valuable
 		return Double.POSITIVE_INFINITY;
 	}
 	public String toString(){
-		String str=String.format("Human name: %s \n registered age:%d ",name,age);
+		String str=String.format("Human name: %s \nregistered age:%d ",name,age);
 		return str;
+	}
+	public double EstimateValue(){
+		return Double.POSITIVE_INFINITY;
 	}
 }

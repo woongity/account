@@ -1,4 +1,5 @@
 package account;
+import java.util.ArrayList;
 
 public abstract class Account1  {
 	protected double balance;
@@ -17,6 +18,21 @@ public abstract class Account1  {
 	public double getBalance(){
 		return balance;
 	}
-	public abstract double getWithdrawableAmount();
-	public abstract double passTime(int month);
+	public static double sumForAccount(ArrayList<? extends Account1> list ){
+		double sum=0;
+		for(Account1 account:list){
+			sum+=account.getBalance();
+		}
+		return sum;
+	}
+	public abstract double getWithdrawableAmount() throws Exception;
+	public abstract void passTime();
+	public abstract double estimateValue();
+	public abstract double estimateValue(int a);
+	public abstract void passTime(int i) throws Exception;
+	public static void passTimeForList(ArrayList<? extends Account1> list, int month) throws Exception  {
+		for(Account1 account:list){
+			account.passTime(month);
+		}	
+	}
 }

@@ -34,19 +34,25 @@ public class CheckingAccount extends Account1{
 			balance=balance*(1+interest);
 		}
 	}
-	public double passTime(int month){
+	public void passTime(){
+		 if(balance<0){
+			 balance= balance*Math.pow((1+loanInterest),1);
+		 }
+		 else{
+			 balance= balance*Math.pow((1+interest),1);
+		 }
+	}
+	public void passTime(int month){
 		 if(balance<0){
 			 balance= balance*Math.pow((1+loanInterest),month);
-			 return balance;
 		 }
 		 else{
 			 balance= balance*Math.pow((1+interest),month);
-			 return balance;
 		 }
 	}
-	public double getWithdrawableAmount(){
+	public double getWithdrawableAmount() throws Exception{
 		if(isBankrupted()){
-			return 0;
+			throw new Exception("ÆÄ»ê");
 		}else{
 			return balance+creditLimit;
 		}
@@ -57,6 +63,14 @@ public class CheckingAccount extends Account1{
 	public String toString(){
 		String str=String.format("CheckingAccount_Balance : %f",balance);
 		return str;
+	}
+	public double estimateValue(){
+		balance=balance*(1+interest);
+		return balance;
+	}
+	public double estimateValue(int month){
+		balance=balance*Math.pow(1+interest,month);
+		return balance;
 	}
 }
 
